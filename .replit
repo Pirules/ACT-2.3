@@ -1,2 +1,2 @@
 language = "cpp"
-run = "g++ -std=c++17 -o main main.cpp \n ./papaya < testcase.txt"
+run = "g++ -std=c++17 -o main *.cpp \n ./main < testcase.txt"

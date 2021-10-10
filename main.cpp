@@ -112,17 +112,16 @@ int main(){
     //obtenemos la posicion de inicio y de fin de los datos a depsplegar con busqueda binaria
     posInicial = binarySearch(info, info.size(), dateI);
     posFinal = binarySearch(info, info.size(), dateF);
-
+    //imprimimos en consola los resultados de la busqueda
     for (int i=posInicial; i<=posFinal;i++){
       info[i].imprimir();
       cout<<endl;
     } 
 
-
+    //guardamos en archivo la bitacora ordenada
     ofstream o ("bitacora_ordenada.txt");
     for (int i=0; i<=info.size()-1;i++){
       info[i].imprimirtxt(o);
-      cout<<endl;
     } 
     o.close();
     
