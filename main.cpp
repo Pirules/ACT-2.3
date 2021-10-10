@@ -1,12 +1,11 @@
-#include <iostream>
-#include <vector>
 #include <string>
-#include "Datos.h"
+#include <fstream>
+#include "DataStruct.h"
 
 using namespace std;
 
 //Algoritmo de ordenamiento por fusion(Merge) Division & Fusion.
-void merge(vector<datos> &lista, int low, int m, int high){
+/*void merge(vector<datos> &lista, int low, int m, int high){
   vector<datos> temp;
   
   int i, j;
@@ -34,22 +33,22 @@ void merge(vector<datos> &lista, int low, int m, int high){
   }
   for(int i = low; i<= high; i++)
     lista[i] = temp[i-low];
-}
+}*/
 
 //Algoritmo de ordenamiento por fusion(Merge) 
 //Complejidad temporal O(n log n)
-void ordenaMerge(vector<datos>& lista, int low, int high){
+/*void ordenaMerge(vector<datos>& lista, int low, int high){
   if (low<high) {
     int m = (low + high) / 2;
     ordenaMerge(lista, low, m);
     ordenaMerge(lista, m+1, high);
     merge(lista, low, m, high);
   }
-}
+}*/
 
 /*Siento que es posible usar polimorfismo y sobrecarga para reutilizar el codigo que tenemos para la clase datos.
 sin tener que volver a escribir todo esto o usar otro metodo.*/
-time_t getFecha(string fecha){ 
+/*time_t getFecha(string fecha){ 
   int dia, horas, minutos, segundos;
   string mes;
   vector<string> meses = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
@@ -68,10 +67,10 @@ time_t getFecha(string fecha){
   dateStruct.tm_year = 2021 - 1900;
   return mktime(&dateStruct);
 
-}
+}*/
  
 //funcion de busqueda binaria iterativa.
-int binarySearch(vector<datos>& lista, int n, time_t k) {
+/*int binarySearch(vector<datos>& lista, int n, time_t k) {
   int low = 0;
   int high = n - 1;
   while (low <= high) {
@@ -83,19 +82,20 @@ int binarySearch(vector<datos>& lista, int n, time_t k) {
       low = m + 1;
   }
   return -1;
-}
+}*/
 
 int main(){
-    vector<datos> info;
+    DataStruct<string> info;
     string input, fecha, mes;
     ifstream archivoIn("bitacora.txt");
     int dia, horas, minutos, segundos, posInicial, posFinal;
     time_t dateI, dateF;
     while(getline(archivoIn,input)){
-      info.push_back(datos(input));
+      info.addLast(input);
     }
     archivoIn.close();
-    
+    //info.printList();
+    /*
     ordenaMerge(info,0,info.size()-1);
 
     
@@ -124,6 +124,6 @@ int main(){
       info[i].imprimirtxt(o);
     } 
     o.close();
-    
+    */
     return 0;
 }
