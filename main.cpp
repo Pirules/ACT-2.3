@@ -4,85 +4,6 @@
 
 using namespace std;
 
-//Algoritmo de ordenamiento por fusion(Merge) Division & Fusion.
-/*void merge(vector<datos> &lista, int low, int m, int high){
-  vector<datos> temp;
-  
-  int i, j;
-  i = low;
-  j = m+1;
-  
-  while ( i <= m && j <= high){
-
-    if (lista[i] <= lista[j]){
-      temp.push_back(lista[i]);
-      i++;
-    } else {
-      temp.push_back(lista[j]);
-      j++;
-    }
-  }
-
-  while (i <= m){
-      temp.push_back(lista[i]);
-      i++;
-  }
-  while (j <= high){
-      temp.push_back(lista[j]);
-      j++;
-  }
-  for(int i = low; i<= high; i++)
-    lista[i] = temp[i-low];
-}*/
-
-//Algoritmo de ordenamiento por fusion(Merge) 
-//Complejidad temporal O(n log n)
-/*void ordenaMerge(vector<datos>& lista, int low, int high){
-  if (low<high) {
-    int m = (low + high) / 2;
-    ordenaMerge(lista, low, m);
-    ordenaMerge(lista, m+1, high);
-    merge(lista, low, m, high);
-  }
-}*/
-
-/*Siento que es posible usar polimorfismo y sobrecarga para reutilizar el codigo que tenemos para la clase datos.
-sin tener que volver a escribir todo esto o usar otro metodo.*/
-/*time_t getFecha(string fecha){ 
-  int dia, horas, minutos, segundos;
-  string mes;
-  vector<string> meses = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-  struct tm dateStruct;
-  mes = fecha.substr(0,fecha.find(" "));
-  
-  dateStruct.tm_sec = stoi(fecha.substr(13,fecha.find(":")));
-  dateStruct.tm_min = stoi(fecha.substr(10,fecha.find(":")));
-  dateStruct.tm_hour = stoi(fecha.substr(6,fecha.find(":")));
-  dateStruct.tm_mday = stoi(fecha.substr(3,fecha.find(" ")));
-  dateStruct.tm_isdst = 0;
-  for (int i=0; i<meses.size(); i++){
-      if (meses[i]==mes)
-       dateStruct.tm_mon = i;
-  }
-  dateStruct.tm_year = 2021 - 1900;
-  return mktime(&dateStruct);
-
-}*/
- 
-//funcion de busqueda binaria iterativa.
-/*int binarySearch(vector<datos>& lista, int n, time_t k) {
-  int low = 0;
-  int high = n - 1;
-  while (low <= high) {
-    int m = low + (high - low) / 2;
-    if (lista[m] == k) return m;
-    else if (lista[m] > k) 
-      high = m - 1;
-    else 
-      low = m + 1;
-  }
-  return -1;
-}*/
 
 int main(){
     DataStruct<string> info;
@@ -94,9 +15,9 @@ int main(){
       info.addLast(input);
     }
     archivoIn.close();
+    info.ordenaMerge(&info.head);
     //info.printList();
-    /*
-    ordenaMerge(info,0,info.size()-1);
+    
 
     
     //pedimos al usuario fechas para delimitar la busqueda
@@ -109,21 +30,22 @@ int main(){
     dateF = getFecha(fecha);
     cout<<endl;
 
-    //obtenemos la posicion de inicio y de fin de los datos a depsplegar con busqueda binaria
-    posInicial = binarySearch(info, info.size(), dateI);
-    posFinal = binarySearch(info, info.size(), dateF);
-    //imprimimos en consola los resultados de la busqueda
-    for (int i=posInicial; i<=posFinal;i++){
-      info[i].imprimir();
-      cout<<endl;
-    } 
 
+    //obtenemos la posicion de inicio y de fin de los datos a depsplegar con busqueda binaria
+    posInicial = info.binarySearch(dateI);
+    posFinal = info.binarySearch(dateF);
+    //imprimimos en consola los resultados de la busqueda
+    ofstream e ("resultado_busqueda.txt");
+    for (int i=posInicial; i<=posFinal;i++){
+      info.imprimirAt(i);
+      info.guardarAt(i,e);
+    } 
+    e.close();
+    
     //guardamos en archivo la bitacora ordenada
     ofstream o ("bitacora_ordenada.txt");
-    for (int i=0; i<=info.size()-1;i++){
-      info[i].imprimirtxt(o);
-    } 
+    info.guardarLista(o);
     o.close();
-    */
+
     return 0;
 }

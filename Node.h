@@ -15,12 +15,15 @@ using namespace std;
       T mes, razon, ip;
       T dia, horas, minutos, segundos;
       time_t date;
+      string lineaNodo;
       Node<T>* next;
       Node<T>* prev;
       Node();
       Node(T);
+      void setValues(Node<T>* nodo);
       void imprimir();
-      vector<string> meses = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};        
+      void guardar(ofstream &o);
+      vector<string> meses = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};  
   }; 
 
   template<class T>
@@ -62,7 +65,20 @@ using namespace std;
     this->date = mktime(&dateStruct);
     next = NULL;
     prev = NULL;
+    this->lineaNodo = linea;
   }
+  template<class T>
+  void Node<T>::setValues(Node<T>* nodo){
+    razon = nodo->razon;
+    mes = nodo->mes;
+    ip = nodo->ip;
+    dia = nodo->dia;
+    horas = nodo->horas;
+    minutos = nodo->minutos;
+    segundos = nodo->segundos;
+    date = nodo->date;
+  }
+
   
   template<class T>
   void Node<T>::imprimir(){
@@ -73,6 +89,17 @@ using namespace std;
     cout<<segundos<<" ";
     cout<<ip<<endl;
     //cout<<razon<<" ";
+    //o<<razon<<" "<<endl;
+}
+
+  template<class T>
+  void Node<T>::guardar(ofstream &o){
+    o<<mes<<"";
+    o<<dia<<"";
+    o<<horas<<":";
+    o<<minutos<<":";
+    o<<segundos<<" ";
+    o<<ip<<endl;
     //o<<razon<<" "<<endl;
 }
 
